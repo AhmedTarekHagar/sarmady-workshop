@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { ProductsService } from '../services/products.service';
 import { Product } from '../interfaces/product';
@@ -14,6 +14,12 @@ import { Title } from '@angular/platform-browser';
 export class ProductsComponent implements OnInit {
 
   constructor(private _ProductsService: ProductsService, private _Title: Title) { }
+  
+
+  activeSize:number = 0
+  updateSizeActive(index: number): void {
+    this.activeSize = index;
+  }
 
   ngOnInit(): void {
     this.products = this._ProductsService.productsList;
@@ -81,8 +87,10 @@ export class ProductsComponent implements OnInit {
     carousel.next();
   }
 
-  videoURL!:string;
-  updateVideoURL(newURL:string):void {
+  videoURL!: string;
+  updateVideoURL(newURL: string): void {
     this.videoURL = newURL.split('v=')[1];
   }
+
+
 }

@@ -27,8 +27,9 @@
                     <div class="col-md-4 d-flex flex-column justify-content-between py-5">
                         <h6>size</h6>
                         <div class="d-flex gap-2">
-                            <div class="cursor-pointer rounded-circle border border-black border-2 px-2 py-1"
-                                *ngFor="let size of product.size;">{{size}}</div>
+                            <div class="size cursor-pointer rounded-circle border border-black border-2 px-2 py-1"
+                                *ngFor="let size of product.size; index as index;" [class.active]="index === activeSize"
+                                (click)="updateSizeActive(index)">{{size}}</div>
                         </div>
                         <div class="d-flex justify-content-between">
                             <span class="text-muted">reviews</span>
@@ -49,7 +50,7 @@
                         <div>
                             <p>colour</p>
                             <div class="d-flex gap-3">
-                                <div class="color-element border border-5 rounded-circle"
+                                <div class="color-element cursor-pointer border border-5 rounded-circle"
                                     *ngFor="let color of product.colors; index as index"
                                     (click)="updateColorIndex(index)" [style.background]="color.hex"></div>
                             </div>
@@ -67,10 +68,10 @@
                             </button>
                         </div>
                         <div class="d-flex gap-3 align-items-center">
-                            <i class="fa-solid fa-arrow-left" (click)="prevSlide(outerCar)"></i>
-                            <i class="fa-solid fa-arrow-right" (click)="nextSlide(outerCar)"></i>
+                            <i class="fa-solid fa-arrow-left cursor-pointer" (click)="prevSlide(outerCar)"></i>
+                            <i class="fa-solid fa-arrow-right cursor-pointer" (click)="nextSlide(outerCar)"></i>
                         </div>
-                        <div class="d-flex gap-3 align-items-center">
+                        <div class="d-flex gap-3 align-items-center cursor-pointer">
                             <span>1</span>
                             <span class="page d-inline-flex justify-content-center align-items-center"></span>
                             <span class="page d-inline-flex justify-content-center align-items-center"></span>
@@ -79,7 +80,7 @@
                         </div>
                         <div class="d-flex gap-3 align-items-center">
                             <button type="button" class="btn btn-dark rounded-0 px-4 py-2">Add to cart</button>
-                            <i class="fa-regular fa-heart"></i>
+                            <i class="fa-regular fa-heart cursor-pointer"></i>
                         </div>
                     </div>
                 </div>
@@ -91,6 +92,8 @@
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <youtube-player [videoId]="videoURL"> </youtube-player>
+        <div>
+            <youtube-player [videoId]="videoURL"> </youtube-player>
+        </div>
     </div>
 </div>
