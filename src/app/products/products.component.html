@@ -1,0 +1,96 @@
+<owl-carousel-o #outerCar [options]="outerCarouselOptions">
+
+    <ng-container *ngFor="let product of products">
+        <ng-template carouselSlide>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 d-flex flex-column justify-content-between py-3">
+                        <h3>{{product.category}}</h3>
+                        <h2>{{product.title}}</h2>
+                        <p class="text-muted">{{product.description}}</p>
+                        <div class="d-flex">
+                            <div *ngFor="let image of product.colors[colorIndex].images; index as index">
+                                <img class="w-100" [src]="image" (click)="changeImage(innerCar, index)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <owl-carousel-o #innerCar [options]="innerCarouselOptions">
+                            <ng-container *ngFor="let image of product.colors[colorIndex].images; index as index">
+                                <ng-template carouselSlide [id]="product.id.toString()">
+                                    <img [src]="image" class="w-100 d-block mx-auto" [alt]="product.description"
+                                        [title]="product.description">
+                                </ng-template>
+                            </ng-container>
+                        </owl-carousel-o>
+                    </div>
+                    <div class="col-md-4 d-flex flex-column justify-content-between py-5">
+                        <h6>size</h6>
+                        <div class="d-flex gap-2">
+                            <div class="cursor-pointer rounded-circle border border-black border-2 px-2 py-1"
+                                *ngFor="let size of product.size;">{{size}}</div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">reviews</span>
+                            <span>
+                                <i class="fa-regular fa-star text-muted"></i>
+                                <i class="fa-regular fa-star text-muted"></i>
+                                <i class="fa-regular fa-star text-muted"></i>
+                                <i class="fa-regular fa-star text-muted"></i>
+                                <i class="fa-regular fa-star text-muted"></i>
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Price</span>
+                            <span>
+                                {{product.price | currency:"usd"}}
+                            </span>
+                        </div>
+                        <div>
+                            <p>colour</p>
+                            <div class="d-flex gap-3">
+                                <div class="color-element border border-5 rounded-circle"
+                                    *ngFor="let color of product.colors; index as index"
+                                    (click)="updateColorIndex(index)" [style.background]="color.hex"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex gap-3 align-items-center">
+
+                            <button type="button" class="btn d-flex align-items-center gap-3" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" (click)="updateVideoURL(product.video)">
+                                <i class="fa-solid fa-play rounded-circle bg-secondary-subtle p-3"></i>
+                                <span>Play Video</span>
+                            </button>
+                        </div>
+                        <div class="d-flex gap-3 align-items-center">
+                            <i class="fa-solid fa-arrow-left" (click)="prevSlide(outerCar)"></i>
+                            <i class="fa-solid fa-arrow-right" (click)="nextSlide(outerCar)"></i>
+                        </div>
+                        <div class="d-flex gap-3 align-items-center">
+                            <span>1</span>
+                            <span class="page d-inline-flex justify-content-center align-items-center"></span>
+                            <span class="page d-inline-flex justify-content-center align-items-center"></span>
+                            <span class="page d-inline-flex justify-content-center align-items-center"></span>
+                            <span>{{products.length}}</span>
+                        </div>
+                        <div class="d-flex gap-3 align-items-center">
+                            <button type="button" class="btn btn-dark rounded-0 px-4 py-2">Add to cart</button>
+                            <i class="fa-regular fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </ng-container>
+
+</owl-carousel-o>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <youtube-player [videoId]="videoURL"> </youtube-player>
+    </div>
+</div>

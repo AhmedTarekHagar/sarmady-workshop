@@ -1,0 +1,13 @@
+.color-element {
+    height: 25px;
+    width: 25px;
+    border-color: rgba(128, 128, 128, 0.50);
+}
+
+.page::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 2px;
+    border: 1px solid black;
+}
